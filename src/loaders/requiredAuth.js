@@ -8,6 +8,6 @@ export const requiredAuth = async () => {
     if (error.status == 401) {
       localStorage.removeItem("token");
     }
-    return redirect("/login");
+    return redirect("/admin");
   }
 };

@@ -48,6 +48,7 @@ export const getProfileDb = async () => {
     },
   });
   const data = await response.json();
+  console.log("getProfileDb", data);
 
   if (!response.ok) {
     const error = new Error(data.error || "Error al obtener el perfil");
