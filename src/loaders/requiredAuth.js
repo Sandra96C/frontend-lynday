@@ -11,3 +11,14 @@ export const requiredAuth = async () => {
     return redirect("/admin");
   }
 };
+
+export const requiredAdminAuth = async () => {
+  try {
+    const profile = await getProfileDb();
+    if (profile.role !== "admin") {
+      return redirect("/admin");
+    }
+  } catch (error) {
+    return redirect("/admin");
+  }
+};

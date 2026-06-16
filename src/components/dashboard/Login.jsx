@@ -6,8 +6,6 @@ import { loginUser } from "../../services/auth.service";
 import logo from "../../assets/logo-lynday.jpg";
 import styles from "./Login.module.css";
 
-// import SuccessMessage from "../ui/SuccessMessage";
-
 const initialState = {
   email: "",
   password: "",
@@ -18,7 +16,6 @@ function Login() {
   const { login, user, authLoading, logout } = useAuth();
   const [form, setForm] = useState(initialState);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const isDisabled = !form.email || !form.password || loading;
   const [showPassword, setShowPassword] = useState(false);
@@ -62,14 +59,12 @@ function Login() {
 
     try {
       const data = await loginUser(user);
-      console.log("data1", data);
 
       login(data.user, data.token);
 
       setError(null);
       setForm(initialState);
-      console.log("data2", data);
-      navigate("/admin/home");
+      navigate("/admin/inicio");
     } catch (error) {
       setError(error.message);
     } finally {
@@ -78,15 +73,9 @@ function Login() {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      setSuccess(null);
-    }, 2000);
-  }, [success]);
-
-  useEffect(() => {
     const token = localStorage.getItem("token");
     if (user && token) {
-      navigate("/admin/home");
+      navigate("/admin");
     } else {
       logout();
     }
@@ -114,7 +103,7 @@ function Login() {
 
       <section className={styles.card}>
         <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.field}>
+          <div className="field">
             <label htmlFor="email">Correo electrónico</label>
             <input
               name="email"
@@ -127,21 +116,35 @@ function Login() {
             />
           </div>
 
-          <div className={styles.field}>
+          <div className="field mt-10 mb-10">
             <label htmlFor="password">Contraseña</label>
-            <input
-              name="password"
-              type="password"
-              placeholder="••••••••"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
+
+            <div className={styles.passwordWrapper}>
+              <input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="••••••••"
+                value={form.password}
+                onChange={handleChange}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeSlashIcon className={styles.icon} />
+                ) : (
+                  <EyeIcon className={styles.icon} />
+                )}
+              </button>
+            </div>
           </div>
 
           {error && <p className={styles.error}>{error}</p>}
-          <button type="submit" className={styles.btn} disabled={isDisabled}>
-            {loading ? "Iniciando sesion" : "Iniciar sesion"}
+          <button type="submit" className="btn" disabled={isDisabled}>
+            {loading ? "Iniciando sesion..." : "Iniciar sesion"}
           </button>
         </form>
       </section>
