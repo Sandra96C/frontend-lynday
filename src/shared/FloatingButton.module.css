@@ -1,0 +1,13 @@
+.floatingMenu {
+  position: fixed;
+  left: 20vw;
+  bottom: 4vw;
+  height: 3.5rem;
+  width: 3.5rem;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}

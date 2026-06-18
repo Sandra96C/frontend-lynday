@@ -7,7 +7,9 @@ function LayoutDashboard() {
     <div className="main-dashboard-layout">
       <Sidebar />
 
-      <Outlet />
+      <div className="dashboard-content">
+        <Outlet />
+      </div>
     </div>
   );
 }

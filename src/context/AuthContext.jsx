@@ -11,10 +11,8 @@ export const AuthProvider = ({ children }) => {
   const [authLoading, setAuthLoading] = useState(true);
 
   const login = (user, token) => {
-    console.log("login0");
     localStorage.setItem("token", token);
     setUser(user);
-    console.log("login1", { user: user, token });
   };
 
   const logout = () => {
@@ -25,7 +23,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     async function verifyUser() {
       const token = localStorage.getItem("token");
-      console.log("login2");
 
       if (!token) {
         setAuthLoading(false);
@@ -35,7 +32,6 @@ export const AuthProvider = ({ children }) => {
       try {
         const data = await getProfileDb();
         setUser(data);
-        console.log("login3");
       } catch (error) {
         localStorage.removeItem("token");
         setUser(null);

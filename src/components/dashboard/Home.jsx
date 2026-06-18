@@ -20,7 +20,7 @@ function Home() {
 
   return (
     <div>
-      <h1>
+      <h1 className="text-3xl font-bold">
         Bienvenido, {user.name.charAt(0).toUpperCase() + user.name.slice(1)} =)
       </h1>
     </div>

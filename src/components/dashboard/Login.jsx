@@ -116,10 +116,10 @@ function Login() {
             />
           </div>
 
-          <div className="field mt-10 mb-10">
+          <div className="field">
             <label htmlFor="password">Contraseña</label>
 
-            <div className={styles.passwordWrapper}>
+            <div className="passwordWrapper">
               <input
                 id="password"
                 name="password"

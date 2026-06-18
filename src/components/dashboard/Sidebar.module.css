@@ -3,7 +3,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  width: 16vw;
+  width: 18vw;
   border-right: 1px solid var(--sidebar-border);
   background-color: var(--sidebar);
 }

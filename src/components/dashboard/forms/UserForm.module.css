@@ -1,0 +1,16 @@
+.form {
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--sidebar-border);
+  background-color: var(--sidebar);
+}
+
+.formActions {
+  margin-top: auto;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}

@@ -1,10 +1,16 @@
 const API_URL = `${import.meta.env.VITE_API_URL}/auth`;
 
+const getToken = () => {
+  return localStorage.getItem("token");
+};
+
 export const registerUser = async (user) => {
+  const token = getToken();
   const response = await fetch(`${API_URL}/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(user),
   });
@@ -48,7 +54,6 @@ export const getProfileDb = async () => {
     },
   });
   const data = await response.json();
-  console.log("getProfileDb", data);
 
   if (!response.ok) {
     const error = new Error(data.error || "Error al obtener el perfil");
