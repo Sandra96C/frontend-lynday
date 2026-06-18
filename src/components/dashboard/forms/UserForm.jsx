@@ -38,6 +38,7 @@ function UserForm({ user, onSuccess }) {
       active: user?.active || false,
     });
   };
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const validateForm = () => {
     if (!formData.name) {
@@ -50,6 +51,10 @@ function UserForm({ user, onSuccess }) {
 
     if (!formData.role) {
       return "El role es obligatorio";
+    }
+
+    if (!emailRegex.test(formData.email)) {
+      return "El formato del email no es válido (ejemplo@dominio.com)";
     }
 
     if (!isEdit) {
