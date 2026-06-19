@@ -64,7 +64,7 @@ function Login() {
 
       setError(null);
       setForm(initialState);
-      navigate("/admin/inicio");
+      navigate("/admin");
     } catch (error) {
       setError(error.message);
     } finally {

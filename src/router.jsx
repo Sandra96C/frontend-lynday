@@ -5,7 +5,11 @@ import Home from "./components/dashboard/Home.jsx";
 import Orders from "./components/dashboard/Orders.jsx";
 import Users from "./components/dashboard/Users.jsx";
 import Products from "./components/dashboard/Products.jsx";
-import { requiredAuth, requiredAdminAuth } from "./loaders/requiredAuth.js";
+import {
+  requiredAuth,
+  requiredAdminAuth,
+  redirectIfAuth,
+} from "./loaders/requiredAuth.js";
 import LayoutDashboard from "./components/dashboard/LayoutDashboard.jsx";
 
 export const router = createBrowserRouter([
@@ -15,6 +19,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "login",
+        loader: redirectIfAuth,
         element: <Login />,
       },
     ],
@@ -25,7 +30,7 @@ export const router = createBrowserRouter([
     element: <LayoutDashboard />,
     children: [
       {
-        path: "inicio",
+        path: "",
         element: <Home />,
       },
       {

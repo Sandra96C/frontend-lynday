@@ -4,6 +4,7 @@ import styles from "./Users.module.css";
 import { Pencil, Trash, UserPlus, CircleCheck, CircleX, X } from "lucide-react";
 import UserForm from "./forms/UserForm";
 import FloatingButton from "../../shared/FloatingButton";
+import Table from "../../shared/Table";
 import ConfirmModal from "../../shared/ConfirmModal";
 import { deleteUser } from "../../services/user.service";
 
@@ -12,6 +13,31 @@ function Users() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [creatingUser, setCreatingUser] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
+  const columns = [
+    { header: "Nombre", render: (user) => user.name },
+    { header: "Email", render: (user) => user.email },
+    { header: "Rol", render: (user) => user.role },
+    {
+      header: "Activo",
+      render: (user) =>
+        user.active ? (
+          <CircleCheck className={`${styles.icon} success`} />
+        ) : (
+          <CircleX className={`${styles.icon} red`} />
+        ),
+    },
+  ];
+  const actions = (user) => {
+    return (
+      <div className={styles.actions}>
+        <Pencil className={`${styles.icon}`} onClick={() => selectUser(user)} />
+        <Trash
+          className={`${styles.icon} red`}
+          onClick={() => setUserToDelete(user._id)}
+        />
+      </div>
+    );
+  };
 
   const selectUser = (user) => {
     setCreatingUser(false);
@@ -53,49 +79,7 @@ function Users() {
         </p>
 
         <section className={styles.table}>
-          <table>
-            <thead className={styles.tableHeader}>
-              <tr>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Rol</th>
-                <th>Activo</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody className={styles.tableBody}>
-              {users.map((user) => (
-                <tr key={user._id}>
-                  <td className="fw-bold">
-                    {user.name.charAt(0).toUpperCase() + user.name.slice(1)}
-                  </td>
-                  <td>{user.email}</td>
-                  <td>{user.role}</td>
-                  <td>
-                    {user.active ? (
-                      <CircleCheck className={`${styles.icon} success`} />
-                    ) : (
-                      <CircleX className={`${styles.icon} red`} />
-                    )}
-                  </td>
-                  <td>
-                    <div className={styles.actions}>
-                      <Pencil
-                        className={styles.icon}
-                        onClick={() => {
-                          selectUser(user);
-                        }}
-                      />
-                      <Trash
-                        className={`${styles.icon} red`}
-                        onClick={() => setUserToDelete(user._id)}
-                      />
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <Table columns={columns} data={users} actions={actions}></Table>
         </section>
       </div>
       {selectedUser || creatingUser ? (

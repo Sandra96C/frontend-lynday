@@ -5,7 +5,7 @@ import logo from "../../assets/logo-lynday.jpg";
 import styles from "./Sidebar.module.css";
 
 const navItems = [
-  { href: "/admin/inicio", label: "Inicio", icon: LayoutDashboard },
+  { href: "/admin", label: "Inicio", icon: LayoutDashboard },
   { href: "/admin/orders", label: "Pedidos", icon: ShoppingBag },
   { href: "/admin/products", label: "Productos", icon: Package },
   { href: "/admin/users", label: "Usuarios", icon: Users },

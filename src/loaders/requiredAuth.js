@@ -8,7 +8,16 @@ export const requiredAuth = async () => {
     if (error.status == 401) {
       localStorage.removeItem("token");
     }
+    return redirect("/login");
+  }
+};
+
+export const redirectIfAuth = async () => {
+  try {
+    await getProfileDb();
     return redirect("/admin");
+  } catch {
+    return null;
   }
 };
 
@@ -19,6 +28,6 @@ export const requiredAdminAuth = async () => {
       return redirect("/admin");
     }
   } catch (error) {
-    return redirect("/admin");
+    return redirect("/login");
   }
 };
