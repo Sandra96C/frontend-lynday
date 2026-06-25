@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-import styles from "./UserForm.module.css";
+import styles from "./form.module.css";
 import { updateUser } from "../../../services/user.service";
 import { registerUser } from "../../../services/auth.service";
 

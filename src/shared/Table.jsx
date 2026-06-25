@@ -13,14 +13,23 @@ function Table({ columns, data, actions }) {
           </tr>
         </thead>
         <tbody className={styles.tableBody}>
-          {data.map((row) => (
-            <tr key={row._id}>
-              {columns.map((col, i) => (
-                <td key={i}>{col.render(row)}</td>
-              ))}
-              {actions && <td>{actions(row)}</td>}
+          {data.length ? (
+            data.map((row) => (
+              <tr key={row._id}>
+                {columns.map((col, i) => (
+                  <td key={i}>{col.render(row)}</td>
+                ))}
+                {actions && <td>{actions(row)}</td>}
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={columns.length + 1} className={styles.noData}>
+                {" "}
+                No hay datos
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
         {/* <thead className={styles.tableHeader}>
           <tr>

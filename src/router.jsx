@@ -11,6 +11,8 @@ import {
   redirectIfAuth,
 } from "./loaders/requiredAuth.js";
 import LayoutDashboard from "./components/dashboard/LayoutDashboard.jsx";
+import Categories from "./components/dashboard/Categories.jsx";
+import ProductDetail from "./components/dashboard/ProductDetail.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -33,13 +35,21 @@ export const router = createBrowserRouter([
         path: "",
         element: <Home />,
       },
+      // {
+      //   path: "orders",
+      //   element: <Orders />,
+      // },
       {
-        path: "orders",
-        element: <Orders />,
+        path: "categories",
+        element: <Categories />,
       },
       {
         path: "products",
         element: <Products />,
+      },
+      {
+        path: "products/:id",
+        element: <ProductDetail />,
       },
       {
         path: "users",

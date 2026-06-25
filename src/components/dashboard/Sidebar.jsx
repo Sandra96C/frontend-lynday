@@ -1,4 +1,10 @@
-import { LayoutDashboard, ShoppingBag, Package, Users } from "lucide-react";
+import {
+  LayoutDashboard,
+  ShoppingBag,
+  Package,
+  Users,
+  Tags,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router";
 import logo from "../../assets/logo-lynday.jpg";
@@ -6,7 +12,8 @@ import styles from "./Sidebar.module.css";
 
 const navItems = [
   { href: "/admin", label: "Inicio", icon: LayoutDashboard },
-  { href: "/admin/orders", label: "Pedidos", icon: ShoppingBag },
+  // { href: "/admin/orders", label: "Pedidos", icon: ShoppingBag },
+  { href: "/admin/categories", label: "Categorias", icon: Tags },
   { href: "/admin/products", label: "Productos", icon: Package },
   { href: "/admin/users", label: "Usuarios", icon: Users },
 ];
@@ -18,7 +25,7 @@ function DashboardSidebar() {
     <aside className={styles.sidebar}>
       <div className={styles.header}>
         <img src={logo} alt="Lynday Regalos" className={styles.sidebarLogo} />
-        <div>
+        <div className={styles.name}>
           <p className={styles.headerTitle}>Lynday Regalos</p>
           <p className={styles.headerText}>Panel de gestión</p>
         </div>
@@ -37,7 +44,7 @@ function DashboardSidebar() {
               }
             >
               <Icon className={styles.icon} />
-              <span>{item.label}</span>
+              <span className={styles.name}>{item.label}</span>
             </Link>
           );
         })}
