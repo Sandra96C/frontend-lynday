@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, Pencil } from "lucide-react";
+import { ArrowLeft, Pencil, Plus } from "lucide-react";
 import styles from "./ProductDetail.module.css";
 import { useProduct } from "../../hooks/useProduct";
 import placeholderProduct from "../../assets/images/placeholder-product.png";
@@ -101,7 +101,11 @@ function ProductDetail() {
               className={`${styles.editButton} absolute top-1 right-1`}
               onClick={() => setIsOpenModalImage(true)}
             >
-              <Pencil size={16} alt="Edita las imagenes" />
+              {product.images?.length > 0 ? (
+                <Pencil size={16} alt="Edita las imagenes" />
+              ) : (
+                <Plus size={16} alt="Sube las imagenes" />
+              )}
             </button>
           </div>
         </div>

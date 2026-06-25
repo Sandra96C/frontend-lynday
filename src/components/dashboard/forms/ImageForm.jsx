@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./form.module.css";
-import { Trash, Upload } from "lucide-react";
+import { Trash2, Upload } from "lucide-react";
 import { updateProduct } from "../../../services/product.service";
 import { useAuth } from "../../../hooks/useAuth";
 
@@ -103,7 +103,7 @@ function ImageForm({ product, onSuccess, loadProduct }) {
               className={`${styles.editButton} absolute top-2 right-2 text-white rounded-full p-1 cursor-pointer`}
               onClick={() => deleteImg(image)}
             >
-              <Trash size={16} />
+              <Trash2 size={16} />
             </button>
           </div>
         ))}

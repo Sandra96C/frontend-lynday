@@ -31,48 +31,6 @@ function Table({ columns, data, actions }) {
             </tr>
           )}
         </tbody>
-        {/* <thead className={styles.tableHeader}>
-          <tr>
-            {columns.map((col) => {
-              <th> {col}</th>;
-            })}
-            {actions ?? <th></th>}
-          </tr>
-        </thead>
-        <tbody className={styles.tableBody}>
-          {data.map((dat) => (
-            <tr key={dat._id}>
-              <td className="fw-bold">
-                {dat.name.charAt(0).toUpperCase() + dat.name.slice(1)}
-              </td>
-              <td>{user.email}</td>
-              <td>{user.role}</td>
-              <td>
-                {user.active ? (
-                  <CircleCheck className={`${styles.icon} success`} />
-                ) : (
-                  <CircleX className={`${styles.icon} red`} />
-                )}
-              </td>
-              {actions ?? (
-                <td>
-                  <div className={styles.actions}>
-                    <Pencil
-                      className={styles.icon}
-                      onClick={() => {
-                        selectUser(user);
-                      }}
-                    />
-                    <Trash
-                      className={`${styles.icon} red`}
-                      onClick={() => setUserToDelete(user._id)}
-                    />
-                  </div>
-                </td>
-              )}
-            </tr>
-          ))}
-        </tbody> */}
       </table>
     </>
   );

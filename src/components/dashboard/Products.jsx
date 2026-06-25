@@ -3,7 +3,7 @@ import { useProducts } from "../../hooks/useProducts";
 import { useCategory } from "../../hooks/useCategory";
 import {
   Pencil,
-  Trash,
+  Trash2,
   Eye,
   CircleFadingPlus,
   ChevronDown,
@@ -152,7 +152,7 @@ function Products() {
                       className={`${styles.icon}`}
                       onClick={() => navigate(`/admin/products/${product._id}`)}
                     />
-                    <Trash
+                    <Trash2
                       className={`${styles.icon} red`}
                       onClick={() => setProductToDelete(product._id)}
                     />
@@ -227,7 +227,7 @@ function Products() {
                                 navigate(`/admin/products/${product._id}`)
                               }
                             />
-                            <Trash
+                            <Trash2
                               className={`${styles.icon} red`}
                               onClick={() => setProductToDelete(product._id)}
                             />

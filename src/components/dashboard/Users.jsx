@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
 import { useUser } from "../../hooks/useUser";
 import styles from "./Users.module.css";
-import { Pencil, Trash, UserPlus, CircleCheck, CircleX, X } from "lucide-react";
+import {
+  Pencil,
+  Trash2,
+  UserPlus,
+  CircleCheck,
+  CircleX,
+  X,
+} from "lucide-react";
 import UserForm from "./forms/UserForm";
 import FloatingButton from "../../shared/FloatingButton";
 import Table from "../../shared/Table";
@@ -31,7 +38,7 @@ function Users() {
     return (
       <div className={styles.actions}>
         <Pencil className={`${styles.icon}`} onClick={() => selectUser(user)} />
-        <Trash
+        <Trash2
           className={`${styles.icon} red`}
           onClick={() => setUserToDelete(user._id)}
         />
