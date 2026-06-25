@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
 import { useProducts } from "../../hooks/useProducts";
-import { useCategory } from "../../hooks/useCategory";
 import {
   Pencil,
   Trash2,
@@ -20,13 +19,11 @@ import FormModal from "../../shared/FormModal";
 function Products() {
   const { products, loadProducts } = useProducts();
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [creatingProduct, setCreatingProduct] = useState(false);
   const navigate = useNavigate();
   const [productToDelete, setProductToDelete] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const selectProduct = (product) => {
     setIsModalOpen(true);
-    setCreatingProduct(false);
     setSelectedProduct(product);
   };
 
@@ -45,14 +42,7 @@ function Products() {
   const handleCreateClick = () => {
     setIsModalOpen(true);
     setSelectedProduct(null);
-    setCreatingProduct(true);
   };
-
-  // const handleFormSuccess = () => {
-  //   loadProducts();
-  //   setSelectedProduct(null);
-  //   setCreatingProduct(false);
-  // };
 
   const { uncategorized, grouped } = useMemo(() => {
     const uncategorized = products.filter((p) => {

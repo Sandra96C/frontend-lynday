@@ -5,26 +5,25 @@ import {
   createProduct,
 } from "../../../services/product.service";
 import { useCategory } from "../../../hooks/useCategory";
+import { useAuth } from "../../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 function ProductForm({ product, onSuccess }) {
   const isEdit = Boolean(product?._id);
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
-  const [saving, setSaving] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const { categories, loadCategories } = useCategory();
+  const { logout } = useAuth();
+  const { categories } = useCategory();
   const [formData, setFormData] = useState({
     name: "",
     slug: "",
     description: "",
     price: "",
     stock: "",
-    images: null,
-    categories: "",
+    categories: [],
     level: "basic",
     active: false,
   });
-
-  const [passwordBefore, setPasswordBefore] = useState();
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -42,8 +41,7 @@ function ProductForm({ product, onSuccess }) {
       description: product?.description || "",
       price: product?.price || "",
       stock: product?.stock || "",
-      images: product?.images || null,
-      categories: product?.categories || "",
+      categories: product?.categories || [],
       level: product?.level || "basic",
       active: product?.active,
     });
@@ -71,7 +69,6 @@ function ProductForm({ product, onSuccess }) {
     }
 
     setError("");
-    setSaving(true);
 
     try {
       if (isEdit) {
@@ -90,8 +87,6 @@ function ProductForm({ product, onSuccess }) {
         return;
       }
       setError(error.message);
-    } finally {
-      setSaving(false);
     }
   };
 
@@ -139,48 +134,63 @@ function ProductForm({ product, onSuccess }) {
               onChange={handleChange}
             />
           </div>
-          <div className="field">
-            <label htmlFor="stock">Stock</label>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="field">
+              <label htmlFor="stock">Stock</label>
 
-            <input
-              type="text"
-              id="stock"
-              name="stock"
-              value={formData.stock}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="field">
-            <label htmlFor="categories">Categorias</label>
-            <select
-              className="select"
-              id="categories"
-              name="categories"
-              value={formData.categories}
-              onChange={handleChange}
-            >
-              <option value=""></option>
-              {categories.map((c) => (
-                <option value={c._id}>{c.name}</option>
-              ))}
-            </select>
-          </div>
+              <input
+                type="text"
+                id="stock"
+                name="stock"
+                value={formData.stock}
+                onChange={handleChange}
+              />
+            </div>
 
-          <div className="field">
-            <label htmlFor="level">Nivel: </label>
-            <select
-              className="select"
-              id="level"
-              name="level"
-              value={formData.level}
-              onChange={handleChange}
-            >
-              <option value="basic">Basico</option>
-              <option value="medium">Medio</option>
-              <option value="premium">Premium</option>
-            </select>
+            <div className="field">
+              <label htmlFor="price">Price: </label>
+              <input
+                type="number"
+                id="price"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
-          <div>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="field">
+              <label htmlFor="level">Nivel: </label>
+              <select
+                className="select"
+                id="level"
+                name="level"
+                value={formData.level}
+                onChange={handleChange}
+              >
+                <option value="basic">Basico</option>
+                <option value="medium">Medio</option>
+                <option value="premium">Premium</option>
+              </select>
+            </div>
+            <div className="field">
+              <label htmlFor="categories">Categorias</label>
+              <select
+                className="select"
+                id="categories"
+                name="categories"
+                value={formData.categories}
+                onChange={handleChange}
+              >
+                <option value=""></option>
+                {categories.map((c) => (
+                  <option value={c._id}>{c.name}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="mt-2 mb-4">
             <label htmlFor="active">Activo: </label>
             <input
               type="checkbox"
@@ -190,30 +200,13 @@ function ProductForm({ product, onSuccess }) {
               onChange={handleChange}
             />
           </div>
-          <div className="field">
-            <label htmlFor="price">Price: </label>
-            <input
-              type="number"
-              id="price"
-              name="price"
-              value={formData.price}
-              onChange={handleChange}
-              required
-            />
-          </div>
         </div>
 
         {error && <p className="error">{error}</p>}
 
         <div className={styles.formActions}>
           <button type="submit" className="btn">
-            {loading
-              ? isEdit
-                ? "Editando producto..."
-                : "Creando producto..."
-              : isEdit
-                ? "Editar producto"
-                : "Crear producto"}
+            {isEdit ? "Editar producto" : "Crear producto"}
           </button>
         </div>
       </form>

@@ -176,6 +176,7 @@ function ProductDetail() {
             product={product}
             onSuccess={() => {
               setIsModalOpen(false);
+              loadProduct();
             }}
           />
         </FormModal>

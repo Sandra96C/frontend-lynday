@@ -67,30 +67,32 @@ function ImageForm({ product, onSuccess, loadProduct }) {
   return (
     <div>
       <div className="field">
-        <label className="mb-2" htmlFor="images">
-          Editar Imagenes:
-        </label>
-        <label htmlFor="images" className={styles.uploadLabel}>
-          <Upload size={18} />
-          <span>Haz click aquí para subir imágenes</span>
-        </label>
-        <input
-          className={`${styles.hiddenInput} mb-5`}
-          type="file"
-          id="images"
-          name="images"
-          accept="image/*"
-          onChange={async (e) => {
-            const file = e.target.files[0];
-            const url = await uploadImage(file);
-            setFormData({
-              ...formData,
-              images: [...formData.images, url],
-            });
-          }}
-        />
+        <h2 className="mr-15 mb-10 text-2xl font-bold">Editar Imagenes:</h2>
+        {formData.images.length < 4 && (
+          <>
+            <label htmlFor="images" className={styles.uploadLabel}>
+              <Upload size={18} />
+              <span>Haz click aquí para subir imágenes</span>
+            </label>
+            <input
+              className={`${styles.hiddenInput} mb-5`}
+              type="file"
+              id="images"
+              name="images"
+              accept="image/*"
+              onChange={async (e) => {
+                const file = e.target.files[0];
+                const url = await uploadImage(file);
+                setFormData({
+                  ...formData,
+                  images: [...formData.images, url],
+                });
+              }}
+            />
+          </>
+        )}
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
         {formData.images?.map((image) => (
           <div className="relative" key={image}>
             <img
@@ -112,9 +114,6 @@ function ImageForm({ product, onSuccess, loadProduct }) {
         <div className="flex gap-5">
           <button type="submit" className="btn" onClick={handleSubmit}>
             Guardar
-          </button>
-          <button type="" className="btn">
-            Cancelar
           </button>
         </div>
       </div>
