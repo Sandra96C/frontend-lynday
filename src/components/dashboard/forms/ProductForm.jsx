@@ -73,16 +73,11 @@ function ProductForm({ product, onSuccess }) {
     setError("");
     setSaving(true);
 
-    const productData = { ...formData };
-    if (!productData.password) {
-      delete productData.password;
-    }
-
     try {
       if (isEdit) {
-        await updateProduct(productData, product._id);
+        await updateProduct(formData, product._id);
       } else {
-        await createProduct(productData);
+        await createProduct(formData);
       }
 
       if (onSuccess) {

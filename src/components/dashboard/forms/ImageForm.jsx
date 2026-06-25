@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./form.module.css";
-import { Trash } from "lucide-react";
+import { Trash, Upload } from "lucide-react";
+import { updateProduct } from "../../../services/product.service";
+import { useAuth } from "../../../hooks/useAuth";
 
-function ImageForm({ product }) {
+function ImageForm({ product, onSuccess, loadProduct }) {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     images: product?.images || null,
   });
@@ -11,7 +16,7 @@ function ImageForm({ product }) {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "lynday");
-    formData.append("folder", `lynday/products/${product.id}`);
+    formData.append("folder", `lynday/products/${product._id}`);
 
     const response = await fetch(
       `https://api.cloudinary.com/v1_1/devhdnlyu/image/upload`,
@@ -25,13 +30,52 @@ function ImageForm({ product }) {
     return data.secure_url.replace("/upload/", "/upload/f_webp,q_auto/");
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formData);
+
+    try {
+      await updateProduct(formData, product._id);
+
+      if (onSuccess) {
+        onSuccess();
+        loadProduct();
+      }
+    } catch (error) {
+      if (error.status == 401) {
+        logout();
+        navigate("/login");
+        return;
+      }
+    }
+  };
+
+  const deleteImg = async (image) => {
+    const index = formData.images.map((img, i) => {
+      if (img == image) return i;
+    });
+
+    formData.images.splice(index, 1);
+    setFormData({
+      ...formData,
+      images: [...formData.images],
+    });
+  };
+
   useEffect(() => {}, []);
 
   return (
     <div>
       <div className="field">
-        <label htmlFor="images">Imagenes</label>
+        <label className="mb-2" htmlFor="images">
+          Editar Imagenes:
+        </label>
+        <label htmlFor="images" className={styles.uploadLabel}>
+          <Upload size={18} />
+          <span>Haz click aquí para subir imágenes</span>
+        </label>
         <input
+          className={`${styles.hiddenInput} mb-5`}
           type="file"
           id="images"
           name="images"
@@ -57,11 +101,22 @@ function ImageForm({ product }) {
 
             <button
               className={`${styles.editButton} absolute top-2 right-2 text-white rounded-full p-1 cursor-pointer`}
+              onClick={() => deleteImg(image)}
             >
               <Trash size={16} />
             </button>
           </div>
         ))}
+      </div>
+      <div className="flex justify-center mt-5">
+        <div className="flex gap-5">
+          <button type="submit" className="btn" onClick={handleSubmit}>
+            Guardar
+          </button>
+          <button type="" className="btn">
+            Cancelar
+          </button>
+        </div>
       </div>
     </div>
   );

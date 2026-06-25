@@ -1,19 +1,15 @@
-import { useEffect, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useProducts } from "../../hooks/useProducts";
 import { useCategory } from "../../hooks/useCategory";
 import {
   Pencil,
   Trash,
-  CircleCheck,
-  CircleX,
-  X,
   Eye,
   CircleFadingPlus,
   ChevronDown,
   ChevronRight,
 } from "lucide-react";
 import FloatingButton from "../../shared/FloatingButton";
-import Table from "../../shared/Table";
 import ConfirmModal from "../../shared/ConfirmModal";
 import styles from "./Products.module.css";
 import ProductForm from "./forms/ProductForm";
@@ -23,7 +19,6 @@ import FormModal from "../../shared/FormModal";
 
 function Products() {
   const { products, loadProducts } = useProducts();
-  const { categories, loadCategories } = useCategory();
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [creatingProduct, setCreatingProduct] = useState(false);
   const navigate = useNavigate();
@@ -53,11 +48,12 @@ function Products() {
     setCreatingProduct(true);
   };
 
-  const handleFormSuccess = () => {
-    loadProducts();
-    setSelectedProduct(null);
-    setCreatingProduct(false);
-  };
+  // const handleFormSuccess = () => {
+  //   loadProducts();
+  //   setSelectedProduct(null);
+  //   setCreatingProduct(false);
+  // };
+
   const { uncategorized, grouped } = useMemo(() => {
     const uncategorized = products.filter((p) => {
       return !p.categories || p.categories.length === 0;

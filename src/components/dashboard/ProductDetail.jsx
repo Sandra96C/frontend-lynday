@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Pencil } from "lucide-react";
 import styles from "./ProductDetail.module.css";
 import { useProduct } from "../../hooks/useProduct";
@@ -10,9 +10,10 @@ import FormModal from "../../shared/FormModal";
 
 function ProductDetail() {
   const [activeImage, setActiveImage] = useState(0);
+
   const { id } = useParams();
-  const navigate = useNavigate();
-  const { product, loading, error, setError } = useProduct(id);
+  // const navigate = useNavigate();
+  const { product, loading, error, loadProduct } = useProduct(id);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpenModalImage, setIsOpenModalImage] = useState(false);
 
@@ -81,10 +82,10 @@ function ProductDetail() {
             />
           </div>
 
-          {product.images?.length > 1 && (
-            <div className={styles.divThumbnails}>
-              <div className={styles.thumbnails}>
-                {product.images.map((image, index) => (
+          <div className={styles.divThumbnails}>
+            <div className={styles.thumbnails}>
+              {product.images?.length >= 1 &&
+                product.images.map((image, index) => (
                   <button
                     key={image}
                     onClick={() => setActiveImage(index)}
@@ -95,15 +96,14 @@ function ProductDetail() {
                     <img src={image} alt="" />
                   </button>
                 ))}
-              </div>
-              <button
-                className={`${styles.editButton} absolute top-1 right-1`}
-                onClick={() => setIsOpenModalImage(true)}
-              >
-                <Pencil size={16} alt="Edita las imagenes" />
-              </button>
             </div>
-          )}
+            <button
+              className={`${styles.editButton} absolute top-1 right-1`}
+              onClick={() => setIsOpenModalImage(true)}
+            >
+              <Pencil size={16} alt="Edita las imagenes" />
+            </button>
+          </div>
         </div>
 
         <div>
@@ -184,6 +184,7 @@ function ProductDetail() {
         >
           <ImageForm
             product={product}
+            loadProduct={loadProduct}
             onSuccess={() => {
               setIsOpenModalImage(false);
             }}

@@ -46,3 +46,32 @@
   background: var(--primary);
   color: var(--primary-foreground);
 }
+
+.hiddenInput {
+  display: none;
+}
+
+.uploadLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  width: 100%;
+  padding: 12px 16px;
+
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-md);
+
+  background: var(--card);
+  color: var(--muted-foreground);
+
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.uploadLabel:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 5%, var(--card));
+}
