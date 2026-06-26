@@ -140,7 +140,9 @@ function Products() {
 
                     <Eye
                       className={`${styles.icon}`}
-                      onClick={() => navigate(`/admin/products/${product._id}`)}
+                      onClick={() =>
+                        navigate(`/admin/products/${product.slug}`)
+                      }
                     />
                     <Trash2
                       className={`${styles.icon} red`}
@@ -214,7 +216,7 @@ function Products() {
                             <Eye
                               className={`${styles.icon}`}
                               onClick={() =>
-                                navigate(`/admin/products/${product._id}`)
+                                navigate(`/admin/products/${product.slug}`)
                               }
                             />
                             <Trash2

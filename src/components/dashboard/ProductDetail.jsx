@@ -11,9 +11,9 @@ import FormModal from "../../shared/FormModal";
 function ProductDetail() {
   const [activeImage, setActiveImage] = useState(0);
 
-  const { id } = useParams();
+  const { slug } = useParams();
   // const navigate = useNavigate();
-  const { product, loading, error, loadProduct } = useProduct(id);
+  const { product, loading, error, loadProduct } = useProduct({ slug });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpenModalImage, setIsOpenModalImage] = useState(false);
 

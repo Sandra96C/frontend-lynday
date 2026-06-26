@@ -5,7 +5,6 @@ const getToken = () => {
 };
 
 export const getProducts = async () => {
-  const token = getToken();
   const response = await fetch(URL_API);
   if (!response.ok) {
     throw new Error("Error al obtener los productos");
@@ -15,8 +14,16 @@ export const getProducts = async () => {
 };
 
 export const getProductById = async (id) => {
-  const token = getToken();
   const response = await fetch(`${URL_API}/${id}`);
+  if (!response.ok) {
+    throw new Error("Error al obtener el producto");
+  }
+  const data = await response.json();
+  return data;
+};
+
+export const getProductBySlug = async (slug) => {
+  const response = await fetch(`${URL_API}/${slug}`);
   if (!response.ok) {
     throw new Error("Error al obtener el producto");
   }
