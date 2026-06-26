@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
-import styles from "./form.module.css";
 import {
   updateCategory,
   createCategory,
 } from "../../../services/category.service";
+import { useAuth } from "../../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import styles from "./form.module.css";
 
 function CategoryForm({ category, onSuccess }) {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   const isEdit = Boolean(category?._id);
   const [error, setError] = useState(null);
-  const [saving, setSaving] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     image: "",
     sort: "",
   });
-
-  const [passwordBefore, setPasswordBefore] = useState();
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -55,7 +55,6 @@ function CategoryForm({ category, onSuccess }) {
     }
 
     setError("");
-    setSaving(true);
 
     const categoryData = { ...formData };
     if (!categoryData.password) {
@@ -79,8 +78,6 @@ function CategoryForm({ category, onSuccess }) {
         return;
       }
       setError(error.message);
-    } finally {
-      setSaving(false);
     }
   };
 
@@ -128,29 +125,23 @@ function CategoryForm({ category, onSuccess }) {
               onChange={handleChange}
             />
           </div>
-          <div className="field">
-            <label htmlFor="images">Imagenes</label>
-            {/* <input
+          {/* <div className="field">
+            <label htmlFor="images">Imagenes</label> */}
+          {/* <input
               type="text"
               id="images"
               name="images"
               value={formData.images}
               onChange={handleChange}
             /> */}
-          </div>
+          {/* </div> */}
         </div>
 
         {error && <p className="error">{error}</p>}
 
         <div className={styles.formActions}>
           <button type="submit" className="btn">
-            {loading
-              ? isEdit
-                ? "Editando categoria..."
-                : "Creando categoria..."
-              : isEdit
-                ? "Editar categoria"
-                : "Crear categoria"}
+            {isEdit ? "Editar categoria" : "Crear categoria"}
           </button>
         </div>
       </form>

@@ -12,9 +12,9 @@ function FormModal({ isOpen, onClose, children, size = "md" }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
       <div
-        className={`relative z-10 w-full ${sizes[size]} rounded-lg bg-white p-6`}
+        className={`relative z-10 w-full ${sizes[size]} rounded-lg bg-white p-6  `}
       >
         <button className="absolute right-4 cursor-pointer" onClick={onClose}>
           <X />
