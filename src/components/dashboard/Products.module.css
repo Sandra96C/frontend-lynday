@@ -1,0 +1,172 @@
+.page {
+  padding: 1.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.tableWrapper {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--card);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding: 0.875rem 1rem;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--muted-foreground);
+  border-bottom: 1px solid var(--border);
+}
+
+.table td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--foreground);
+}
+
+.table tbody tr:hover {
+  background: color-mix(in srgb, var(--muted) 40%, transparent);
+}
+
+.groupRow {
+  background: color-mix(in srgb, var(--muted) 60%, transparent);
+}
+
+.groupButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--foreground);
+  font-weight: 600;
+  text-align: left;
+}
+
+.groupButton:hover {
+  background: color-mix(in srgb, var(--muted) 80%, transparent);
+}
+
+.countBadge {
+  margin-left: auto;
+  padding: 0.15rem 0.65rem;
+  border-radius: 999px;
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.indented {
+  padding-left: 2.5rem !important;
+}
+
+/* BADGES */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 0.25rem 0.65rem;
+
+  border-radius: 999px;
+
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  text-transform: capitalize;
+}
+
+.basic {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.medium {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.premium {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* STATUS */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  font-size: 0.875rem;
+}
+
+.status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.active {
+  color: var(--foreground);
+}
+
+.active::before {
+  background: var(--primary);
+}
+
+.inactive {
+  color: var(--muted-foreground);
+}
+
+.inactive::before {
+  background: color-mix(in srgb, var(--muted-foreground) 40%, transparent);
+}
+
+.price {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.formDiv {
+  position: relative;
+  width: 100%;
+  background-color: var(--sidebar);
+  border-right: 1px solid var(--sidebar-border);
+  border-radius: 0.5rem;
+  padding: 0 1.5rem;
+  height: 90vh;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  gap: 2rem;
+}
