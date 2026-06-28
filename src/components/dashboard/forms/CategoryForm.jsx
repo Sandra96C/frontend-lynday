@@ -6,6 +6,7 @@ import {
 import { useAuth } from "../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import styles from "./form.module.css";
+import ErrorDiv from "../../../shared/ErrorDiv";
 
 function CategoryForm({ category, onSuccess }) {
   const { logout } = useAuth();
@@ -84,6 +85,14 @@ function CategoryForm({ category, onSuccess }) {
   };
 
   useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
+    }
+  }, [error]);
+
+  useEffect(() => {
     initFormData();
   }, [category]);
 
@@ -150,7 +159,11 @@ function CategoryForm({ category, onSuccess }) {
           {/* </div> */}
         </div>
 
-        {error && <p className="error">{error}</p>}
+        {error && (
+          <div className="m-2">
+            <ErrorDiv message={error} />
+          </div>
+        )}
 
         <div className={styles.formActions}>
           <button type="submit" className="btn">

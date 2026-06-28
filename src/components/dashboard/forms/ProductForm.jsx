@@ -7,6 +7,7 @@ import {
 import { useCategory } from "../../../hooks/useCategory";
 import { useAuth } from "../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import ErrorDiv from "../../../shared/ErrorDiv";
 
 function ProductForm({ product, onSuccess }) {
   const isEdit = Boolean(product?._id);
@@ -55,6 +56,10 @@ function ProductForm({ product, onSuccess }) {
     if (!formData.price) {
       return "El precio es obligatorio";
     }
+
+    if (formData.price > 0) {
+      return "El precio tiene que ser superior a 0";
+    }
     return "";
   };
 
@@ -89,6 +94,14 @@ function ProductForm({ product, onSuccess }) {
       setError(error.message);
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
+    }
+  }, [error]);
 
   useEffect(() => {
     initFormData();
@@ -202,7 +215,11 @@ function ProductForm({ product, onSuccess }) {
           </div>
         </div>
 
-        {error && <p className="error">{error}</p>}
+        {error && (
+          <div className="m-2">
+            <ErrorDiv message={error} />
+          </div>
+        )}
 
         <div className={styles.formActions}>
           <button type="submit" className="btn">

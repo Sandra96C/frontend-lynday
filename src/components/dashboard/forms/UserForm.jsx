@@ -3,13 +3,17 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import styles from "./form.module.css";
 import { updateUser } from "../../../services/user.service";
 import { registerUser } from "../../../services/auth.service";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
+import ErrorDiv from "../../../shared/ErrorDiv";
 
 function UserForm({ user, onSuccess }) {
   const isEdit = Boolean(user?._id);
   const [error, setError] = useState(null);
-  const [saving, setSaving] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const { logout } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,8 +21,6 @@ function UserForm({ user, onSuccess }) {
     role: "",
     active: false,
   });
-
-  const [passwordBefore, setPasswordBefore] = useState();
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -81,7 +83,6 @@ function UserForm({ user, onSuccess }) {
     }
 
     setError("");
-    setSaving(true);
 
     const userData = { ...formData };
     if (!userData.password) {
@@ -105,10 +106,16 @@ function UserForm({ user, onSuccess }) {
         return;
       }
       setError(error.message);
-    } finally {
-      setSaving(false);
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
+    }
+  }, [error]);
 
   useEffect(() => {
     initFormData();
@@ -196,8 +203,11 @@ function UserForm({ user, onSuccess }) {
             />
           </div>
         </div>
-
-        {error && <p className="error">{error}</p>}
+        {error && (
+          <div className="m-2">
+            <ErrorDiv message={error} />
+          </div>
+        )}
 
         <div className={styles.formActions}>
           <button type="submit" className="btn">
