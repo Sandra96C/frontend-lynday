@@ -1,14 +1,9 @@
-import {
-  LayoutDashboard,
-  ShoppingBag,
-  Package,
-  Users,
-  Tags,
-} from "lucide-react";
-import { Link } from "react-router-dom";
+import { LayoutDashboard, Package, Users, Tags } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router";
 import logo from "../../assets/logo-lynday.jpg";
 import styles from "./Sidebar.module.css";
+import { useAuth } from "../../hooks/useAuth";
 
 const navItems = [
   { href: "/admin", label: "Inicio", icon: LayoutDashboard },
@@ -19,7 +14,14 @@ const navItems = [
 ];
 
 function DashboardSidebar() {
+  const navigate = useNavigate();
   const pathname = useLocation().pathname;
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <aside className={styles.sidebar}>
@@ -51,7 +53,7 @@ function DashboardSidebar() {
       </nav>
 
       <div className={styles.footer}>
-        <Link to="/">Cerrar sesión</Link>
+        <Link onClick={handleLogout}>Cerrar sesión</Link>
       </div>
     </aside>
   );

@@ -15,8 +15,9 @@ function CategoryForm({ category, onSuccess }) {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    image: "",
-    sort: "",
+    image: null,
+    sort: 0,
+    slug: "",
   });
 
   const handleChange = (event) => {
@@ -32,8 +33,9 @@ function CategoryForm({ category, onSuccess }) {
     setFormData({
       name: category?.name || "",
       description: category?.description || "",
-      images: category?.images || "",
-      sort: category?.sort || "",
+      slug: category?.slug || "",
+      images: category?.images || null,
+      sort: category?.sort || 0,
     });
   };
 
@@ -102,6 +104,17 @@ function CategoryForm({ category, onSuccess }) {
               value={formData.name}
               onChange={handleChange}
               required
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="slug">URL</label>
+
+            <input
+              type="text"
+              id="slug"
+              name="slug"
+              value={formData.slug}
+              onChange={handleChange}
             />
           </div>
           <div className="field">

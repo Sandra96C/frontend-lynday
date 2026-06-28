@@ -7,7 +7,7 @@ export const useProducts = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingProducts, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const loadProducts = async () => {
@@ -32,5 +32,6 @@ export const useProducts = () => {
     loadProducts,
     error,
     setError,
+    loadingProducts,
   };
 };

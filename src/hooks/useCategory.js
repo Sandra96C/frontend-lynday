@@ -30,5 +30,6 @@ export const useCategory = () => {
   return {
     categories,
     loadCategories,
+    loading,
   };
 };
