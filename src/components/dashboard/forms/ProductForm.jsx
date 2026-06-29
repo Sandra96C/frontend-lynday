@@ -222,7 +222,7 @@ function ProductForm({ product, onSuccess }) {
 
         {error && (
           <div className="m-2">
-            <ErrorDiv message={error} />
+            <ErrorDiv messageError={error} />
           </div>
         )}
 

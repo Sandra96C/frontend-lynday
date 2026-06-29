@@ -100,6 +100,7 @@ function UserForm({ user, onSuccess }) {
         onSuccess();
       }
     } catch (error) {
+      console.log(error);
       if (error.status == 401) {
         logout();
         navigate("/login");
@@ -205,7 +206,7 @@ function UserForm({ user, onSuccess }) {
         </div>
         {error && (
           <div className="m-2">
-            <ErrorDiv message={error} />
+            <ErrorDiv messageError={error} />
           </div>
         )}
 

@@ -7,11 +7,9 @@ function ErrorDiv({ messageError }) {
       <div className={styles.errorBox}>
         <TriangleAlert className={styles.errorIcon} />
         <div>
-          <p className={styles.errorTitle}>
-            {messageError ? messageError : "Error"}
-          </p>
+          <p className={styles.errorTitle}>Error</p>
           <p className={styles.errorMessage}>
-            {!messageError && "Hubo un error"}
+            {messageError ? messageError : "Error"}
           </p>
         </div>
       </div>
