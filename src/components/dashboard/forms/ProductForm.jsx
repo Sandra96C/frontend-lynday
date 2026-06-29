@@ -44,7 +44,7 @@ function ProductForm({ product, onSuccess }) {
       stock: product?.stock || "",
       categories: product?.categories || [],
       level: product?.level || "basic",
-      active: product?.active,
+      active: product?.active || false,
     });
   };
 
@@ -57,7 +57,7 @@ function ProductForm({ product, onSuccess }) {
       return "El precio es obligatorio";
     }
 
-    if (formData.price > 0) {
+    if (formData.price < 0) {
       return "El precio tiene que ser superior a 0";
     }
     return "";
@@ -193,8 +193,13 @@ function ProductForm({ product, onSuccess }) {
                 className="select"
                 id="categories"
                 name="categories"
-                value={formData.categories}
-                onChange={handleChange}
+                value={formData.categories[0] || ""}
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    categories: [e.target.value],
+                  });
+                }}
               >
                 <option value=""></option>
                 {categories.map((c) => (
