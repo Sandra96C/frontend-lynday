@@ -5,6 +5,7 @@ import { useAuth } from "../../hooks/useAuth.js";
 import { loginUser } from "../../services/auth.service";
 import logo from "../../assets/logo-lynday.jpg";
 import styles from "./Login.module.css";
+import ErrorDiv from "../../shared/ErrorDiv.jsx";
 
 const initialState = {
   email: "",
@@ -71,6 +72,14 @@ function Login() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
+    }
+  }, [error]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -142,7 +151,11 @@ function Login() {
             </div>
           </div>
 
-          {error && <p className={styles.error}>{error}</p>}
+          {error && (
+            <div className="m-2">
+              <ErrorDiv messageError={error} />
+            </div>
+          )}
           <button type="submit" className="btn" disabled={isDisabled}>
             {loading ? "Iniciando sesion..." : "Iniciar sesion"}
           </button>
